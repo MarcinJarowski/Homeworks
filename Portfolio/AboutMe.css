@@ -1,0 +1,50 @@
+#AboutMe{
+    height: 100%;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='16' viewBox='0 0 12 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 .99C4 .445 4.444 0 5 0c.552 0 1 .45 1 .99v4.02C6 5.555 5.556 6 5 6c-.552 0-1-.45-1-.99V.99zm6 8c0-.546.444-.99 1-.99.552 0 1 .45 1 .99v4.02c0 .546-.444.99-1 .99-.552 0-1-.45-1-.99V8.99z' fill='%232d4059' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+.AboutMe{
+    display: flex;
+    flex-direction: column;
+    color: var(--background-color);
+    height: 100%;
+}
+.AboutMe--1{
+    display: flex;
+    flex-direction: row;
+    height: 70%;
+    width: 100%;
+}
+.AboutMe__column1{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.AboutMe__column1 img{
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 33px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 33px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 33px 1px rgba(0,0,0,0.75);
+}
+.AboutMe__column2{
+    width: 60%;
+    height: 100%;
+}
+.AboutMe__column2 h1{
+    display: inline-block;
+    font-weight: bold;
+    border-bottom: solid 2px var(--background-color);
+    padding: 0 15px;
+    margin-left: 30px;
+    font-size: 30px;
+}
+.AboutMe__column2 p{
+    font-size: 1.5em;
+}
+.AboutMe--stripe{
+    width: 100%;
+    height: 30%;
+    background-color: var(--background-color);
+}
