@@ -1,0 +1,76 @@
+#AboutMe{
+    height: 100%;
+    width: 100%;
+    background-color: var(--font-color);
+    margin: 0;
+    padding: 0;
+}
+.AboutMe{
+    display: flex;
+    flex-direction: column;
+    color: var(--background-color);
+    height: 100%;
+}
+.AboutMe--1{
+    display: flex;
+    flex-direction: row;
+    height: 70%;
+    width: 100%;
+}
+.AboutMe__column1{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.AboutMe__column1 img{
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 33px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 33px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 33px 1px rgba(0,0,0,0.75);
+}
+.AboutMe__column2{
+    width: 60%;
+    height: 100%;
+}
+.AboutMe__column2 h1{
+    display: inline-block;
+    font-weight: bold;
+    border-bottom: solid 2px var(--background-color);
+    padding: 0 15px;
+    font-size: 30px;
+}
+.AboutMe__column2 p{
+    font-size: 1.5em;
+    margin-right: 40px;
+}
+.AboutMe--stripe{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
+    background-color: var(--background-color);
+}
+.AboutMe--stripe i{
+    font-size: 4em;
+    color: var(--font-color);
+}
+.AboutMe--stripe i:hover{
+    font-size: 4.5em;
+    color: var(--font-color);
+    transition: 0.5s;
+    
+}
+.AboutMe--stripe p{
+    font-size: 1.5em;
+    color: var(--font-color);
+}
+.AboutMe--stripe__box{
+    width: 250px;
+    text-align: center;
+    margin: 25px 20px 0px 20px;
+    padding-bottom: 0px;
+
+}
