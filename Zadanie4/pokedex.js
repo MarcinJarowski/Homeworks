@@ -19,8 +19,6 @@
  const nextButton = document.querySelector("#next-button");
  const prevButton = document.querySelector("#prev-button");
 
-
-
  const showDetails = data => {
      let typesArray = data.types;
      let getTypes = typesArray.map(object => object.type.name);
@@ -30,6 +28,7 @@
      types.textContent = `Types: ${getTypes.join(" ")}`;
      const createPicture = document.createElement("img");
      createPicture.src = data.sprites.front_default;
+
      if(picture.children.length > 0){
         let firstPic = document.getElementsByTagName("img")[0];
         firstPic.setAttribute("src" , data.sprites.front_default);
@@ -54,25 +53,34 @@
  }
 
  const giveButtonsData = data => {
-        let nextData = data.next;
-        let prevData = data.previous;
-        nextButton.addEventListener("click", function(event){  
-            console.log(nextData);
-            while(list.firstChild){
-                list.removeChild(list.firstChild);
-            }
-            requestData(nextData, createList);
-        });
+    let nextData = data.next;
+    let prevData = data.previous;
 
-        prevButton.addEventListener("click", function(event){
-            console.log(prevData);
-
-            while(list.firstChild){
-                list.removeChild(list.firstChild);
-            }
-            requestData(prevData, createList);
-        });
+    if(prevData == null){
+        prevData = "https://pokeapi.co/api/v2/pokemon/";
+    }
+    else{
+        prevData = data.previous;
+    }
+    const test = () => {
+        while (list.firstChild) {
+            list.removeChild(list.firstChild);
+        }
+        requestData(nextData, createList);
+        nextButton.removeEventListener('click', test);
+        prevButton.removeEventListener('click', test2);
+    }
+    nextButton.addEventListener("click", test);
+    
+    const test2 = () => {
+        while (list.firstChild) {
+            list.removeChild(list.firstChild);
+        }
+        requestData(prevData, createList);
+        nextButton.removeEventListener('click', test);
+        prevButton.removeEventListener('click', test2)
+    }
+    prevButton.addEventListener("click", test2);
 }
 
  requestData("https://pokeapi.co/api/v2/pokemon/", createList)
- 
