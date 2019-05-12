@@ -58,15 +58,31 @@ function showYouLoseDiv() {
 
 function giveCatTopAndLeftPositionValue(){
   let cat = document.querySelector('.cat');
-  cat.style.top = (Math.floor(Math.random() * 500) + 80) + 'px';
+  cat.style.top = (Math.floor(Math.random() * 480) + 80) + 'px';
   cat.style.left = (Math.floor(Math.random() * 800) + 50) + 'px';
 }
 function giveBombTopAndLeftPositionValue(){
   let bomb = document.querySelector('.bomb');
-  bomb.style.top = (Math.floor(Math.random() * 500) + 80) + 'px';
+  bomb.style.top = (Math.floor(Math.random() * 480) + 80) + 'px';
   bomb.style.left = (Math.floor(Math.random() * 800) + 50) + 'px';
 }
 
-setInterval(createBomb, 1000);
-setInterval(createCat, 1000);
+function randomIndex(){
+  let oneOrZero = Math.round(Math.random());
+  if(oneOrZero == 0){
+    createCat();
+    deleteBomb();
+  }
+  else{
+    createBomb();
+    deleteCat();
+  }
+}
+
+setInterval(randomIndex, 1000);
+
+
+
+// TODO w fucking looser zrobic input na imie, wziac value z countera i zapisac
+// w localsie imie i pkt, pokazac wyniki
 
