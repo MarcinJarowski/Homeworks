@@ -1,0 +1,35 @@
+#gameWindow {
+  width: 900px;
+  height: 600px;
+  border: 2px solid red;
+  background-color: #f5f3f1;
+  position: relative;
+}
+#points {
+  font-size: 40px;
+  border: 1px solid black;
+  width: 180px;
+  margin: 20px;
+}
+#lose {
+  border: 1px solid #000;
+  width: 900px;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  display: flex;
+  background-color: red;
+  z-index: -999;
+}
+#lose h1 {
+  margin: auto;
+}
+.bomb {
+  width: 80px;
+  height: 80px;
+}
+.cat {
+  width: 80px;
+  height: 80px;
+  color: #000;
+}
