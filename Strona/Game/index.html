@@ -9,19 +9,19 @@
   </head>
   <body>
     <div id="gameWindow">
-      <div id="points">Points:</div>
+      <div id="points">Points: 0</div>
       <div id="lose">
-        <h1>YOU FUCKING LOOOOOOSER</h1>
+        <h1>KONIEC GRY</h1>
         <div class="scoreAndName">
-          <span class="yourPoints">Your score: </span>
-          <input class="input" type="text" placeholder="Wpisz swoje imię: " />
+          <span id="yourPoints">Your score: </span>
+          <input id="input" placeholder="Wpisz swoje imię: " />
           <button
             type="button"
             class="OkButton"
             name="submit-name"
-            onclick="submitName()"
+            onclick="checkForScoresTableOrSaveData()"
           >
-            OK
+            Zapisz wynik
           </button>
         </div>
       </div>

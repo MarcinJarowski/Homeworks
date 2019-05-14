@@ -3,7 +3,7 @@ const counterValue = document.querySelector("#points");
 const createBombElement = document.createElement("img");
 const createCatElement = document.createElement("img");
 const loseWindow = document.querySelector("#lose");
-let value = 0;
+let scoreValue = 0;
 
 function createBomb() {
   createBombElement.setAttribute("src", "images/bomb.png");
@@ -43,8 +43,8 @@ function catAddEventListener() {
 catAddEventListener();
 
 function addOneToCounter() {
-  value++;
-  counterValue.textContent = "Points: " + value;
+  scoreValue++;
+  counterValue.textContent = "Points: " + scoreValue;
 }
 
 function bombAddEventListener() {
@@ -69,11 +69,13 @@ function giveBombTopAndLeftPositionValue() {
 function showBombOrCat() {
   let oneOrZero = Math.round(Math.random());
   if (oneOrZero == 0) {
+    createCatElement.style.display = "block";
     createCat();
-    deleteBomb();
+    createBombElement.style.display = "none";
   } else {
+    createBombElement.style.display = "block";
     createBomb();
-    deleteCat();
+    createCatElement.style.display = "none";
   }
   checkValueChangeInterval();
 }
@@ -83,19 +85,42 @@ let intervalTimeTwo = 300;
 setInterval(showBombOrCat, intervalTimeOne);
 
 function checkValueChangeInterval() {
-  if (value == 3) {
+  if (scoreValue == 3) {
     clearInterval(showBombOrCat, intervalTimeOne);
     setTimeout(showBombOrCat, intervalTimeTwo);
   }
 }
 
-// TODO w fucking looser zrobic input na imie, wziac value z countera i zapisac
-// w localsie imie i pkt, pokazac wyniki
-function displayScore() {
-  let score = document.querySelector(".yourPoints");
+function checkForScoresTableOrSaveData() {
+  let playerName = document.querySelector("#input");
+  let playerObject = {
+    name: playerName.value,
+    score: scoreValue
+  };
+
+  if (localStorage.getItem("scoresTable") == null) {
+    //jezeli nie ma scoresTable
+    let firstTimeSave = JSON.stringify([playerObject]);
+    localStorage.setItem("scoresTable", firstTimeSave); //zrob pusty array
+  } else {
+    let scoresBeforeParse = localStorage.getItem("scoresTable"); //json pobrany
+    let scoresToObject = JSON.parse(scoresBeforeParse); //konwersja w obiekt
+    let objectsArray = Array.from(scoresToObject);
+    objectsArray.push(playerObject); //dodanie obiektu playera do arraya
+    let updatedArrayReadyToSet = JSON.stringify(objectsArray); //array do wyslania
+    localStorage.setItem("scoresTable", updatedArrayReadyToSet); //wysyla array
+  }
 }
-function submitName() {
-  const nameValue = document.querySelector(".input").value;
-  console.log(nameValue);
-  console.log(value);
-}
+
+/* TODO LIST 
+
+-ekran startowy, instrukcja i guzik start
+-ekran z wynikami, pobierajacy storage, sortujacy array wynikami
+-interval po nacisnieciu start, 60 sekund gry potem wywala ekran koniec gry,
+stopuje pojawianie sie kotow i bomb
+-ogarnac Z-indexy divów (ekranów)
+-poprawić range aby bomba nie wychodziła za ekran
+-ogarnac aby na koniec gry sie score pojawiał też
+-cssy, tła ładne
+->>> podpiac pod strone
+*/
