@@ -19,7 +19,7 @@ function deleteBomb() {
 // deleteBomb();
 
 function createCat() {
-  createCatElement.setAttribute("src", "images/Cat-icon.png");
+  createCatElement.setAttribute("src", "images/cat.png");
   createCatElement.classList.add("cat");
   grabGameWindow.appendChild(createCatElement);
   giveCatTopAndLeftPositionValue();
@@ -56,33 +56,46 @@ function showYouLoseDiv() {
   loseWindow.style.zIndex = "2";
 }
 
-function giveCatTopAndLeftPositionValue(){
-  let cat = document.querySelector('.cat');
-  cat.style.top = (Math.floor(Math.random() * 480) + 80) + 'px';
-  cat.style.left = (Math.floor(Math.random() * 800) + 50) + 'px';
+function giveCatTopAndLeftPositionValue() {
+  let cat = document.querySelector(".cat");
+  cat.style.top = Math.floor(Math.random() * 480) + 80 + "px";
+  cat.style.left = Math.floor(Math.random() * 800) + 50 + "px";
 }
-function giveBombTopAndLeftPositionValue(){
-  let bomb = document.querySelector('.bomb');
-  bomb.style.top = (Math.floor(Math.random() * 480) + 80) + 'px';
-  bomb.style.left = (Math.floor(Math.random() * 800) + 50) + 'px';
+function giveBombTopAndLeftPositionValue() {
+  let bomb = document.querySelector(".bomb");
+  bomb.style.top = Math.floor(Math.random() * 480) + 80 + "px";
+  bomb.style.left = Math.floor(Math.random() * 800) + 50 + "px";
 }
-
-function randomIndex(){
+function showBombOrCat() {
   let oneOrZero = Math.round(Math.random());
-  if(oneOrZero == 0){
+  if (oneOrZero == 0) {
     createCat();
     deleteBomb();
-  }
-  else{
+  } else {
     createBomb();
     deleteCat();
   }
+  checkValueChangeInterval();
 }
+let intervalTimeOne = 1000;
+let intervalTimeTwo = 300;
 
-setInterval(randomIndex, 1000);
+setInterval(showBombOrCat, intervalTimeOne);
 
-
+function checkValueChangeInterval() {
+  if (value == 3) {
+    clearInterval(showBombOrCat, intervalTimeOne);
+    setTimeout(showBombOrCat, intervalTimeTwo);
+  }
+}
 
 // TODO w fucking looser zrobic input na imie, wziac value z countera i zapisac
 // w localsie imie i pkt, pokazac wyniki
-
+function displayScore() {
+  let score = document.querySelector(".yourPoints");
+}
+function submitName() {
+  const nameValue = document.querySelector(".input").value;
+  console.log(nameValue);
+  console.log(value);
+}
