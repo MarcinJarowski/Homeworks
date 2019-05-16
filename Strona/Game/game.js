@@ -3,7 +3,11 @@ const counterValue = document.querySelector("#points");
 const createBombElement = document.createElement("img");
 const createCatElement = document.createElement("img");
 const loseWindow = document.querySelector("#lose");
+const startWindow = document.querySelector("#startWindow");
+let endPoints = document.querySelector("#yourPoints");
 let scoreValue = 0;
+let intervalTimeOne = 1000;
+let intervalTimeTwo = 900;
 
 function createBomb() {
   createBombElement.setAttribute("src", "images/bomb.png");
@@ -11,12 +15,10 @@ function createBomb() {
   grabGameWindow.appendChild(createBombElement);
   giveBombTopAndLeftPositionValue();
 }
-// createBomb();
 
 function deleteBomb() {
   grabGameWindow.removeChild(createBombElement);
 }
-// deleteBomb();
 
 function createCat() {
   createCatElement.setAttribute("src", "images/cat.png");
@@ -24,18 +26,10 @@ function createCat() {
   grabGameWindow.appendChild(createCatElement);
   giveCatTopAndLeftPositionValue();
 }
-// createCat();
 
 function deleteCat() {
   grabGameWindow.removeChild(createCatElement);
 }
-// deleteCat();
-
-// function showHideCat() {
-//     createCatElement.animate([    TODO: obejrzec net ninja i zrobiv animacje ktora pokaze i zniknie element w 1 sec, i bombe
-//         {transform: }
-//     ])
-// }
 
 function catAddEventListener() {
   createCatElement.addEventListener("click", addOneToCounter);
@@ -44,6 +38,9 @@ catAddEventListener();
 
 function addOneToCounter() {
   scoreValue++;
+  if (scoreValue == 5) {
+    checkValueChangeInterval();
+  }
   counterValue.textContent = "Points: " + scoreValue;
 }
 
@@ -53,7 +50,8 @@ function bombAddEventListener() {
 bombAddEventListener();
 
 function showYouLoseDiv() {
-  loseWindow.style.zIndex = "2";
+  loseWindow.style.zIndex = "999";
+  endPoints.textContent = "Twój wynik: " + scoreValue;
 }
 
 function giveCatTopAndLeftPositionValue() {
@@ -77,18 +75,11 @@ function showBombOrCat() {
     createBomb();
     createCatElement.style.display = "none";
   }
-  checkValueChangeInterval();
 }
-let intervalTimeOne = 1000;
-let intervalTimeTwo = 300;
-
-setInterval(showBombOrCat, intervalTimeOne);
 
 function checkValueChangeInterval() {
-  if (scoreValue == 3) {
-    clearInterval(showBombOrCat, intervalTimeOne);
-    setTimeout(showBombOrCat, intervalTimeTwo);
-  }
+  clearInterval(showBombOrCat, intervalTimeOne);
+  setInterval(showBombOrCat, intervalTimeTwo);
 }
 
 function checkForScoresTableOrSaveData() {
@@ -114,13 +105,21 @@ function checkForScoresTableOrSaveData() {
 
 /* TODO LIST 
 
--ekran startowy, instrukcja i guzik start
 -ekran z wynikami, pobierajacy storage, sortujacy array wynikami
--interval po nacisnieciu start, 60 sekund gry potem wywala ekran koniec gry,
-stopuje pojawianie sie kotow i bomb
 -ogarnac Z-indexy divów (ekranów)
 -poprawić range aby bomba nie wychodziła za ekran
--ogarnac aby na koniec gry sie score pojawiał też
 -cssy, tła ładne
 ->>> podpiac pod strone
 */
+
+function startGame() {
+  startWindow.style.zIndex = "-999";
+  setInterval(showBombOrCat, intervalTimeOne);
+  setInterval(stopIntervalShowGameOver, 60000);
+}
+
+function stopIntervalShowGameOver() {
+  clearInterval(showBombOrCat, intervalTimeOne);
+  clearInterval(showBombOrCat, intervalTimeTwo);
+  showYouLoseDiv();
+}

@@ -9,11 +9,27 @@
   </head>
   <body>
     <div id="gameWindow">
-      <div id="points">Points: 0</div>
+      <div id="startWindow">
+        <div class="gameInstruction">
+          <h3>
+            Kliknij w kotka aby zdobyć punkt! Uważaj na wyskakujące bomby!
+          </h3>
+          <h4>Rozgryka trwa 60 sekund, zdobądź jak najwięcej punktów!</h4>
+        </div>
+        <button
+          class="startGame"
+          type="button"
+          name="startGame"
+          onclick="startGame()"
+        >
+          Start
+        </button>
+      </div>
+      <div id="points">Punkty: 0</div>
       <div id="lose">
         <h1>KONIEC GRY</h1>
         <div class="scoreAndName">
-          <span id="yourPoints">Your score: </span>
+          <div id="yourPoints">Twój wynik:</div>
           <input id="input" placeholder="Wpisz swoje imię: " />
           <button
             type="button"
