@@ -87,3 +87,56 @@
 .gameInstruction {
   text-align: center;
 }
+
+#scoresTable {
+  border: 1px solid #000;
+  width: 900px;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #4286f4;
+  z-index: -999;
+}
+
+#ranking {
+  margin: auto;
+  padding: 0;
+  list-style-type: decimal;
+  height: 100%;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+  text-align: center;
+  justify-content: space-evenly;
+}
+.player {
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  overflow: hidden;
+  margin: 0;
+  font-size: 26px;
+  padding: 10px;
+}
+
+.info {
+  display: grid;
+  text-align: center;
+  grid-template-columns: 20% 40% 40%;
+  font-size: 30px;
+  margin: 0 15px;
+}
+.player-place {
+  display: flex;
+  justify-content: center;
+}
+.player-place .circle {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid gold;
+}
