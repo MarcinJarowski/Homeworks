@@ -1,3 +1,6 @@
+:root {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
 #gameWindow {
   width: 900px;
   height: 600px;
@@ -66,7 +69,7 @@
   border-radius: 10px;
   background-color: #fff;
 }
-.scoreAndName #input {
+#nameInput {
   text-align: center;
   padding: 10px;
   border: 1px solid #fff;
@@ -105,14 +108,44 @@
 #ranking {
   margin: auto;
   padding: 0;
-  list-style-type: decimal;
   height: 100%;
+  list-style: none;
   width: 400px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #000;
   text-align: center;
   justify-content: space-evenly;
+}
+#ranking li {
+  border: 2px solid #000;
+  display: grid;
+  text-align: center;
+  grid-template-columns: 20% 60% 20%;
+  justify-content: space-evenly;
+}
+#ranking li:first-child p:first-child {
+  height: 20px;
+  padding: 10px;
+  background-color: gold;
+  width: 20px;
+  margin: auto;
+  border-radius: 50%;
+}
+#ranking li:nth-child(2) p:first-child {
+  height: 20px;
+  width: 20px;
+  padding: 8px;
+  background-color: chocolate;
+  margin: auto;
+  border-radius: 50%;
+}
+#ranking li:nth-child(3) p:first-child {
+  height: 20px;
+  width: 20px;
+  padding: 6px;
+  background-color: silver;
+  margin: auto;
+  border-radius: 50%;
 }
 .player {
   display: grid;
@@ -140,3 +173,31 @@
   border-radius: 50%;
   border: 1px solid gold;
 }
+
+/* //   if (localStorage.getItem("scoresTable") == null) {
+  //     //jezeli nie ma scoresTable
+  //     let firstTimeSave = JSON.stringify([playerObject]);
+  //     localStorage.setItem("scoresTable", firstTimeSave); //zrob pusty array
+  //   } else {
+  //     let scoresBeforeParse = localStorage.getItem("scoresTable"); //json pobrany
+  //     let scoresToObject = JSON.parse(scoresBeforeParse); //konwersja w obiekt
+  //     let objectsArray = Array.from(scoresToObject);
+  //     objectsArray.push(playerObject); //dodanie obiektu playera do arraya
+  //     let updatedArrayReadyToSet = JSON.stringify(objectsArray); //array do wyslania
+  //     localStorage.setItem("scoresTable", updatedArrayReadyToSet); //wysyla array
+  //   }
+  // } */
+
+/* //   if (localStorage.getItem("scoresTable") == null) {
+    //     //jezeli nie ma scoresTable
+    //     let firstTimeSave = JSON.stringify([playerObject]);
+    //     localStorage.setItem("scoresTable", firstTimeSave); //zrob pusty array
+    //   } else {
+    //     let scoresBeforeParse = localStorage.getItem("scoresTable"); //json pobrany
+    //     let scoresToObject = JSON.parse(scoresBeforeParse); //konwersja w obiekt
+    //     let objectsArray = Array.from(scoresToObject);
+    //     objectsArray.push(playerObject); //dodanie obiektu playera do arraya
+    //     let updatedArrayReadyToSet = JSON.stringify(objectsArray); //array do wyslania
+    //     localStorage.setItem("scoresTable", updatedArrayReadyToSet); //wysyla array
+    //   }
+    // } */

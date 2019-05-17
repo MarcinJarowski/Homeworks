@@ -4,10 +4,11 @@ const createBombElement = document.createElement("img");
 const createCatElement = document.createElement("img");
 const loseWindow = document.querySelector("#lose");
 const startWindow = document.querySelector("#startWindow");
+const scoresTable = document.querySelector("#scoresTable");
 let endPoints = document.querySelector("#yourPoints");
 let scoreValue = 0;
 let intervalTimeOne = 1000;
-let intervalTimeTwo = 850;
+let intervalTimeTwo = 960;
 
 function createBomb() {
   createBombElement.setAttribute("src", "images/bomb.png");
@@ -38,10 +39,7 @@ catAddEventListener();
 
 function addOneToCounter() {
   scoreValue++;
-  if (scoreValue > 4) {
-    checkValueChangeInterval();
-  }
-  counterValue.textContent = "Points: " + scoreValue;
+  counterValue.textContent = "Punkty: " + scoreValue;
 }
 
 function bombAddEventListener() {
@@ -61,7 +59,7 @@ function giveCatTopAndLeftPositionValue() {
 }
 function giveBombTopAndLeftPositionValue() {
   let bomb = document.querySelector(".bomb");
-  bomb.style.top = Math.floor(Math.random() * 480) + 80 + "px";
+  bomb.style.top = Math.floor(Math.random() * 440) + 80 + "px";
   bomb.style.left = Math.floor(Math.random() * 800) + 50 + "px";
 }
 function showBombOrCat() {
@@ -76,123 +74,77 @@ function showBombOrCat() {
     createCatElement.style.display = "none";
   }
 }
-
-function checkValueChangeInterval() {
+function startGame() {
+  startWindow.style.zIndex = "-999";
+  setInterval(showBombOrCat, intervalTimeOne);
+  setTimeout(changeDifficultyOne, 10000);
+  setTimeout(stopIntervalShowGameOver, 60000);
+}
+function changeDifficultyOne() {
+  console.log("dupa");
   clearInterval(showBombOrCat, intervalTimeOne);
-  clearInterval(showBombOrCat, intervalTimeTwo);
   setInterval(showBombOrCat, intervalTimeTwo);
 }
+function stopIntervalShowGameOver() {
+  clearInterval(showBombOrCat, intervalTimeOne);
+  clearInterval(showBombOrCat, intervalTimeTwo);
+  showYouLoseDiv();
+}
 
-function checkForScoresTableOrSaveData() {
-  let playerName = document.querySelector("#input");
-  let playerObject = {
-    name: playerName.value,
+function saveScore() {
+  let playerName = document.querySelector("#nameInput").value;
+  let playerScore = {
+    name: playerName,
     score: scoreValue
   };
 
-  //if scoresTable item doesn't exisit in Local Storage, set first object
-  if (localStorage.getItem("scoresTable") == null) {
-    let firstTimeSave = JSON.stringify([playerObject]);
-    localStorage.setItem("scoresTable", firstTimeSave);
-  } else {
-    // getExistingScoresTable
-    let scoresBeforeParse = localStorage.getItem("scoresTable"); //json pobrany
-    let scoresToObject = JSON.parse(scoresBeforeParse); //konwersja w obiekt
-    let objectsArray = Array.from(scoresToObject);
-    // then updateData
-    objectsArray.filter(object => {
-      let objectName = object.name;
-      let objectNameToLower = objectName.toLowerCase();
-      let playerN = playerName.value;
-      let playerNameToLower = playerN.toLowerCase();
+  const scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || []; // jak jest w localStorage 'scoreboard' to weź, a jak nie to pusta tablica
+  const duplicateRecord = scoreboard.find(score => score.name === playerName); // szukamy czy jest duplikat
 
-      if (objectNameToLower == playerNameToLower) {
-        let duplicatedObject = object; // returns duplicated object
-        if (scoreValue > duplicatedObject.score) {
-          //if current score is higher then in localStorage
-          duplicatedObject.score = scoreValue; // set new score value for that object
-          //Make new array of not duplicated ones and push duplicated object with new score set
-          let getAllNotDuplicatedArray = objectsArray.map(objecto => {
-            let objectName = objecto.name;
-            let objectNameToLower = objectName.toLowerCase();
-            let playerN = playerName.value;
-            let playerNameToLower = playerN.toLowerCase();
+  const updatedScoreboard = duplicateRecord
+    ? updateScoreboard(scoreboard, duplicateRecord, scoreValue) // jak jest duplikat to robimy brzydką podmiankę, funkcja jest niżej
+    : [...scoreboard, playerScore]; // jak nie ma to bierzemy wszystko co było i dorzucamy nasz wynik
 
-            if (!objectNameToLower == playerNameToLower) {
-              return objecto;
-            } else {
-              false;
-            }
-          });
-          getAllNotDuplicatedArray.push(duplicatedObject); //return new array with updated score
-          //
-          let updatedArrayReadyToSet = JSON.stringify(getAllNotDuplicatedArray); //array ready to send to LocalStorage in JSON
-          localStorage.setItem("scoresTable", updatedArrayReadyToSet); //new updated scoresTable sent
-        }
-      } else {
-        //if name typed in didn't exist yet, just add new player to scoresTable
-        objectsArray.push(playerObject);
-        let updatedArrayReadyToSet = JSON.stringify(objectsArray);
-        localStorage.setItem("scoresTable", updatedArrayReadyToSet);
-      }
-    });
-  }
+  localStorage.setItem("scoreboard", JSON.stringify(updatedScoreboard)); // ładujemy do localstorage
+  scoresTable.style.zIndex = "999";
+  listRanking();
 }
 
-// function saveFirstObject() {
-//   //jezeli nie ma scoresTable
-//   let firstTimeSave = JSON.stringify([playerObject]);
-//   localStorage.setItem("scoresTable", firstTimeSave);
-// }
-// function getExistingScoresTable() {
-//   let scoresBeforeParse = localStorage.getItem("scoresTable"); //json pobrany
-//   let scoresToObject = JSON.parse(scoresBeforeParse); //konwersja w obiekt
-//   let objectsArray = Array.from(scoresToObject);
-// }
-// function updateData() {
-//   objectsArray.filter(object => {
-//     let objectName = object.name;
-//     let objectNameToLower = objectName.toLowerCase();
-//     let playerN = playerName.value;
-//     let playerNameToLower = playerN.toLowerCase();
+const updateScoreboard = (scoreboard, record, newScore) => {
+  record.score = newScore;
+  return scoreboard;
+};
 
-//     if (objectNameToLower == playerNameToLower) {
-//       let duplicatedObject = object; //zwraca obiekt zduplikowanego
-//       if (scoreValue > duplicatedObject.score) {
-//         //jezeli wynik jest wiekszy od tego w localStorage
-//         duplicatedObject.score = scoreValue; //to ustal nowy score dla tego obiektu
-//         //filtruj te ktore nie sa zduplikowane i dorzuc nowy z nowym score
-// //         getAllNotDuplicated();
-//       }
-//     } else {
-//       sendNotDuplicatedPlayerObject();
-//     }
-//   });
-// }
+const listRanking = () => {
+  const rankingBoard = document.querySelector("#ranking");
+  const scoreboard = JSON.parse(localStorage.getItem("scoreboard"));
+  let n = 0;
+  let sortArray = scoreboard.sort(
+    (a, b) => parseFloat(b.score) - parseFloat(a.score)
+  );
+  console.log(sortArray);
+  let firstTen = sortArray.slice(0, 10);
+  console.log(firstTen);
+  firstTen
+    .map(object => {
+      n = n + 1;
+      let newLi = document.createElement("li");
+      let place = document.createElement("p");
+      let name = document.createElement("p");
+      let score = document.createElement("p");
+      newLi.appendChild(place);
+      newLi.appendChild(name);
+      newLi.appendChild(score);
+      place.textContent = n;
+      name.textContent = object.name;
+      score.textContent = `Pkt: ${object.score}`;
+      console.log(newLi);
+      return newLi;
+    })
+    .forEach(item => rankingBoard.appendChild(item));
+};
 
-// function getAllNotDuplicated() {
-//   let getAllNotDuplicatedArray = objectsArray.filter(object => {
-//     let objectName = object.name;
-//     let objectNameToLower = objectName.toLowerCase();
-//     let playerN = playerName.value;
-//     let playerNameToLower = playerN.toLowerCase();
-
-//     if (!objectNameToLower == playerNameToLower) {
-//       return object;
-//     }
-//   });
-//   getAllNotDuplicated.push(duplicatedObject); //zwraca array z nowym score jesli zduplikowany i wyzszy
-//   //
-//   let updatedArrayReadyToSet = JSON.stringify(getAllNotDuplicated); //array do wyslania
-//   localStorage.setItem("scoresTable", updatedArrayReadyToSet); //wysyla array
-// }
-
-function sendNotDuplicatedPlayerObject() {
-  //// jezeli nie ma duplikatow to pushnij nowego
-  objectsArray.push(playerObject); //dodanie obiektu playera do arraya
-  let updatedArrayReadyToSet = JSON.stringify(objectsArray); //array do wyslania
-  localStorage.setItem("scoresTable", updatedArrayReadyToSet); //wysyla array
-}
+// let orderList = document.querySelector("#ranking");
 /* TODO LIST 
 
 -ekran z wynikami, pobierajacy storage, sortujacy array wynikami
@@ -201,26 +153,6 @@ function sendNotDuplicatedPlayerObject() {
 -cssy, tła ładne
 ->>> podpiac pod strone
 */
-
-function startGame() {
-  startWindow.style.zIndex = "-999";
-  setInterval(showBombOrCat, intervalTimeOne);
-  setInterval(stopIntervalShowGameOver, 60000);
-}
-
-function stopIntervalShowGameOver() {
-  clearInterval(showBombOrCat, intervalTimeOne);
-  clearInterval(showBombOrCat, intervalTimeTwo);
-  showYouLoseDiv();
-}
-
-function showRanking() {
-  let scoresBeforeParse = localStorage.getItem("scoresTable"); //json pobrany
-  let scoresToObject = JSON.parse(scoresBeforeParse); //konwersja w obiekt
-  let objectsArray = Array.from(scoresToObject);
-  console.log(objectsArray);
-}
-// showRanking();
 /*  
 -pobierz scoresTable, zamien w array obiektow
 -sortuj po wyniku
