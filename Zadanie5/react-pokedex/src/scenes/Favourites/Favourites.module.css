@@ -1,0 +1,38 @@
+.favSceneWrapper {
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  margin-top: 40px;
+  text-align: center;
+}
+.favPokeTable {
+  height: 40vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style: none;
+  padding: 0;
+}
+.statsSection {
+  height: 30vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.imgHolder {
+  margin: 0;
+  position: relative;
+  margin: auto;
+}
+.imgHolder:hover {
+  cursor: pointer;
+}
+.imgHolder span {
+  position: absolute;
+}
+.imgHolder span:hover {
+  cursor: pointer;
+}
+.teamStatsList {
+  list-style: none;
+  text-align: left;
+}

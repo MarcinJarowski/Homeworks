@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "pokemon-font";
+  background-color: black;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+#root {
+  width: 70vw;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: white;
+}
+@font-face {
+  font-family: "pokemon-font";
+  src: url("./components/fonts/pokemon-font.eot"); /* IE9 Compat Modes */
+  src: url("./components/fonts/pokemon-font.otf") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./components/fonts/pokemon-font.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("./components/fonts/pokemon-font.woff")
+      format("woff"),
+    /* Pretty Modern Browsers */ url("./components/fonts/pokemon-font.ttf")
+      format("truetype"); /* Safari, Android, iOS */
+  /* There is no SVG version of this font due to support being dropped in SVG 2 */
+}
