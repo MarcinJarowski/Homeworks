@@ -1,3 +1,6 @@
+In this homework I practice JS concepts
+
+
 *Zadanie 1*
 
 1) Napisz funkcję, która policzy sumę elementów w tablicy
